@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from PIL import Image
 from collections import Counter
 from konlpy.tag import Okt
 import networkx as nx
