@@ -37,6 +37,13 @@ def preprocess(user_competition, user_cohort) :
 
 
 def plot(retention_df, f_name='retention.png') :
+    """_summary_
+    spline curve 형태로 분석 결과를 시각화하는 함수
+    
+    Args:
+        retention_df (pd.DataFrame): cohort_1, cohort_2, cohort_3
+        f_name (str): 저장할 파일명
+    """
     x = retention_df.index
     x_smooth = np.linspace(x.min(), x.max(), 500)
     for y in retention_df.columns :
