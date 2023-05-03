@@ -144,13 +144,12 @@ class KeywordNetwork :
 
         label_pos = {}
         for node, x, y, size in self.node_df.values :
-            # if size > ? : + more
             label_pos[node] = (x, y+self.adjust_label_pos(size))
         nx.draw_networkx_labels(self.graph, 
             ax=ax_n,
             pos=label_pos, 
             font_family='AppleGothic',
-            font_size=12,
+            font_size=15,
             font_weight='bold'
         )
 
@@ -182,9 +181,9 @@ def pie_plot(promotion, ax_n, color) :
     labels = promotion.value_counts().keys()
     colors = [color, 'grey', '#28282B'] 
     wedgeprops={'width': 0.6, 'edgecolor': 'w', 'linewidth': 5}
-    textprops={'fontsize': 11, 'color':'black', 'weight':'bold'}
+    textprops={'fontsize': 15, 'color':'black', 'weight':'bold'}
 
-    ax_n.text(-0.2, -0.05, score, fontdict={'size':16, 'weight':'bold'})
+    ax_n.text(-0.1, -0.05, int(np.around(score)), fontdict={'size':20, 'weight':'bold'})
     wedges, texts, autotexts = ax_n.pie(ratio, 
         labels=labels, 
         autopct='%.1f%%', 
@@ -224,10 +223,10 @@ def main(f_name, figsize=(20,14)) :
 
     ## 밑그림
     fig, ax = plt.subplots(2, 2, figsize=figsize, gridspec_kw={'width_ratios': [1, 3]})
-    fig.text(0.215, 0.08, 'NPS', ha='center', fontsize=14, fontweight='bold')
-    fig.text(0.65, 0.08, 'Keyword Network', ha='center', fontsize=14, fontweight='bold')
-    fig.text(0.05, 0.705, '초급자', va='center', fontsize=14, fontweight='bold')
-    fig.text(0.05, 0.285, '숙련자', va='center', fontsize=14, fontweight='bold')
+    fig.text(0.215, 0.08, 'NPS', ha='center', fontsize=20, fontweight='bold')
+    fig.text(0.65, 0.08, 'Keyword Network', ha='center', fontsize=20, fontweight='bold')
+    fig.text(0.05, 0.705, '초급자', va='center', fontsize=20, fontweight='bold')
+    fig.text(0.05, 0.285, '숙련자', va='center', fontsize=20, fontweight='bold')
 
     ## low nps
     low_promotion = low_data['promotion_score'].apply(lambda x: classify_promotion(x))
@@ -247,7 +246,7 @@ def main(f_name, figsize=(20,14)) :
     kn_high.fit()
     kn_high.plot(ax_n=ax[1][1], color='#DB7093')
 
-    plt.savefig(f_name, dpi=200, facecolor='#eeeeee')
+    plt.savefig(f_name, dpi=300, facecolor='#ffffff')
 
 
 if __name__ == '__main__' :

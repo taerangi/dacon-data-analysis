@@ -86,7 +86,7 @@ class user_flow :
                 label = label_list,
                 x = [0.01,0.01,0.01,0.01,0.01,0.33,0.33,0.33,0.66,0.66,0.66,1,1,1],
                 y = y_list,
-                # color = ["green", "orange"] * 4
+                color = ['#71afa0']*5 + ['#638bb8']*3 + ['#cc5a4f']*3 + ['#e69657']*3
             ),
             link = dict(
                 ## source[n] -> target[n] = value[n]
@@ -107,7 +107,7 @@ class user_flow :
                     'l': 50,
                     'r': 50
             },
-            'font': {'size':12},
+            'font': {'size':15},
             'width': width,
             'height': height
         })
@@ -185,7 +185,7 @@ class user_flow :
             witdh = rect.get_width()
             posx = witdh*1.01
             posy = rect.get_y()+rect.get_height()*0.5
-            ax.text(posx, posy, '%.1f' % witdh + '%', rotation=0, ha='left', va='center')
+            ax.text(posx, posy, '%.1f' % witdh + '%', rotation=0, ha='left', va='center', fontsize=15)
     
 
     def barh_plot(self, df_type) :
@@ -204,8 +204,8 @@ class user_flow :
         step = barh_df.index # ['Join', 'Rejoin']
 
         ## matplotlib의 figure 및 axis 설정
-        fig, ax = plt.subplots(1, 1, figsize=(7,5)) 
-        colors = ['salmon', 'orange', 'cadetblue'] 
+        fig, ax = plt.subplots(1, 1, figsize=(10,5)) 
+        colors = ['#FFB6C1', 'skyblue', '#f2f20a'] # 'salmon', 'orange', 'cadetblue'
         height = 0.25
 
         ## bar plot
@@ -217,9 +217,9 @@ class user_flow :
         ## axis 세부설정
         ax.set_xlim([0, 100])
         ax.set_yticks(range(len(step)))
-        ax.set_yticklabels(step, fontsize=10)	
+        ax.set_yticklabels(step, fontsize=15)	
         plt.gca().invert_yaxis()
-        ax.legend()
+        ax.legend(fontsize=15)
 
         ## save as image file
         f_name = f'barh_{df_type}_{self.cohort}.png'

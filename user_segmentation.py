@@ -31,7 +31,7 @@ def elbowmethod(data, param_init='random', param_n_init=10, param_max_iter=300):
     plt.plot(range(1, 10), distortions, marker='o')
     plt.xlabel('Number of Cluster')
     plt.ylabel('Distortion') # WCSS
-    plt.savefig('elbow_method.png', dpi=200, facecolor='#ffffff')
+    plt.savefig('elbow_method.png', dpi=300, facecolor='#ffffff')
 
     print('elbow_method.png 저장을 완료했습니다.')
 
@@ -63,23 +63,23 @@ def biplot(score, coeff, pcax, pcay, cluster, labels=None):
     for i in range(n):
         plt.arrow(0, 0, coeff[i,pca1], coeff[i,pca2], color='r', width=0.005, head_width=0.08)
         if labels is None:
-            plt.text(coeff[i,pca1]* 1.3, coeff[i,pca2] * 1.3, "Var"+str(i+1), color='r', ha='center', va='center')
+            plt.text(coeff[i,pca1]* 1.3, coeff[i,pca2] * 1.3, "Var"+str(i+1), color='r', ha='center', va='center', fontsize=11)
         else:
-            plt.text(coeff[i,pca1]* 1.3, coeff[i,pca2] * 1.3, labels[i], color='r', ha='center', va='center')
+            plt.text(coeff[i,pca1]* 1.3, coeff[i,pca2] * 1.3, labels[i], color='r', ha='center', va='center', fontsize=11)
     plt.xlim(-1,1)
     plt.ylim(-1,1)
     plt.xlabel("PC{} (실력)".format(pcax))
     plt.ylabel("PC{} (활동량)".format(pcay))
 
-    plt.savefig('user_segmentation.png', dpi=200, facecolor='#ffffff')
+    plt.savefig('user_segmentation.png', dpi=300, facecolor='#ffffff')
     print('elbow_method.png 저장을 완료했습니다.')
 
 
 if __name__ == '__main__' :
     parser = argparse.ArgumentParser(description='NPS Survey Analysis')
-    parser.add_argument('elbowmethod', type=bool, default=True,
+    parser.add_argument('--elbowmethod', type=bool, default=True,
                         help='elbowmethod 수행 여부')
-    parser.add_argument('biplot', type=bool, default=True,
+    parser.add_argument('--biplot', type=bool, default=True,
                         help='biplot 수행 여부')
     args = parser.parse_args()
 
@@ -93,7 +93,7 @@ if __name__ == '__main__' :
 
     ## PCA
     pca = PCA()
-    pca.fit()
+    pca.fit(s_data)
     pca_data = pca.transform(s_data)
 
     ## Elbow Method
@@ -107,4 +107,4 @@ if __name__ == '__main__' :
 
     ## Biplot
     if args.biplot :
-        biplot(pca_data, pca.components_, 1, 2, labels=data.columns)
+        biplot(pca_data, pca.components_, 1, 2, km_y, labels=data.columns)

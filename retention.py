@@ -45,18 +45,20 @@ def plot(retention_df, f_name='retention.png') :
         f_name (str): 저장할 파일명
     """
     x = retention_df.index
+    colors = ['#4c7bd7', '#f6ca53', '#ea6a56']
     x_smooth = np.linspace(x.min(), x.max(), 500)
-    for y in retention_df.columns :
+
+    for column, color in zip(retention_df.columns, colors) :
         # 스플라인 보간법으로 새로운 x, y 데이터 생성
-        spl = make_interp_spline(x, retention_df[y], k=3)
+        spl = make_interp_spline(x, retention_df[column], k=3)
         y_smooth = spl(x_smooth)
 
-        plt.plot(x_smooth, y_smooth, label=y)
+        plt.plot(x_smooth, y_smooth, label=column, linewidth=5, color=color)
 
     plt.legend()
     plt.xlabel('Time')
     plt.ylabel('Retention')
-    plt.savefig(f_name, dpi=200, facecolor='#ffffff')
+    plt.savefig(f_name, dpi=300, facecolor='#ffffff')
 
     print(f'{args.f_name}에 저장되었습니다.')
 
